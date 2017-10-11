@@ -9,6 +9,7 @@ import javax.persistence.Query;
 
 import org.junit.Test;
 
+import com.woniuxy.jpa.entity.UUIDTest;
 import com.woniuxy.jpa.entity.User;
 
 public class UserTest {
@@ -140,6 +141,23 @@ public class UserTest {
 
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.find(User.class, 1);
+		
+		entityManager.close();
+		entityManagerFactory.close();
+	}
+	
+	@Test
+	public void uuid(){
+		EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory("jpa");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		UUIDTest user=new UUIDTest();
+		user.setName("fasdfa");
+		
+		entityManager.persist(user);
+		
+		entityManager.getTransaction().commit();
 		
 		entityManager.close();
 		entityManagerFactory.close();
